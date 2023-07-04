@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc-client:
+            provider: spring
+            client-id: oidc-client
+            client-secret: "{noop}secret2"
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://localhost:8081/login/oauth2/code/{registrationId}"
+            scope:
+              - openid
+              - profile
+            client-authentication-method: client_secret_basic
+            client-name: oidc-client
+        provider:
+          spring:
+            issuer-uri: http://127.0.0.1:8080
