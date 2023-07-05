@@ -14,10 +14,10 @@ spring:
         registration:
           oidc-client:
             provider: spring
-            client-id: oidc-client
+            client-id: "oidc-client"
             client-secret: "{noop}secret2"
             authorization-grant-type: authorization_code
-            redirect-uri: "http://localhost:8081/login/oauth2/code/{registrationId}"
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - openid
               - profile
@@ -25,4 +25,7 @@ spring:
             client-name: oidc-client
         provider:
           spring:
-            issuer-uri: http://127.0.0.1:8080
+            issuer-uri: http://localhost:8080
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080
