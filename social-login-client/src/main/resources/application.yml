@@ -21,6 +21,8 @@ spring:
             scope:
               - openid
               - profile
+              - read
+              - write
             client-authentication-method: client_secret_basic
             client-name: oidc-client
         provider:

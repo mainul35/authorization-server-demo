@@ -1,23 +1,12 @@
 spring:
   security:
     user:
-#    - name: mainul35
-#      password: "{noop}secret"
-#      roles: ADMIN
       name: user
       password: "{noop}secret"
       roles: USER
     oauth2:
       authorization-server:
         client:
-          client-1:
-            registration:
-              client-id: client-with-client-credentials
-              client-secret: "{noop}secret1"
-              authorization-grant-types: client_credentials
-              client-authentication-methods:
-                - client_secret_basic
-                - client_secret_post
           oidc-client:
             registration:
               client-id: oidc-client
