@@ -20,7 +20,7 @@ spring:
                 - client_secret_post
           oidc-client:
             registration:
-              client-id: "oidc-client"
+              client-id: oidc-client
               client-secret: "{noop}secret2"
               authorization-grant-types:
                 - "authorization_code"

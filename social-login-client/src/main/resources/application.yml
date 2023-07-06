@@ -14,8 +14,8 @@ spring:
         registration:
           oidc-client:
             provider: spring
-            client-id: "oidc-client"
-            client-secret: "{noop}secret2"
+            client-id: oidc-client
+            client-secret: secret2
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
