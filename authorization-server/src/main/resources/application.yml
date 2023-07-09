@@ -13,6 +13,7 @@ spring:
               client-secret: "{noop}secret2"
               authorization-grant-types:
                 - "authorization_code"
+                - "refresh_token"
               client-authentication-methods:
                 - client_secret_basic
               redirect-uris:
@@ -25,6 +26,9 @@ spring:
                 - "read"
                 - "write"
             require-authorization-consent: true
+            token:
+              access-token-time-to-live: 3600s
+              refresh-token-time-to-live: 7200s
 #        endpoint:
 #          token-uri: "/oauth2/token"
 #        issuer-uri: http://127.0.0.1:8080/issuer
