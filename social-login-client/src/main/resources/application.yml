@@ -21,6 +21,10 @@ spring:
               - openid
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 
+          github:
+            client-id: 04469a8b0400d262e3d7
+            client-secret: 66584a7e848b20fbbde772aa9a83ee1b5b4a07f8
+
           # Client registration starts here
           oidc-client:
 
