@@ -17,13 +17,13 @@ public class AppService {
 
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
-    @PreAuthorize("hasAuthority('SCOPE_profile')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_profile', 'SCOPE_openid')")
     public String getJwtToken() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var accessToken = getAccessToken(authentication);
-        var refreshToken = getRefreshToken(authentication);
+        var refreshToken = getRefreshToken(authentication) != null ? getRefreshToken(authentication).getTokenValue() : "NA";
         return String.format("Access Token = %s <br><br><br> Refresh Token = %s",
-                accessToken.getTokenValue(), refreshToken.getTokenValue());
+                accessToken.getTokenValue(), refreshToken);
     }
 
     public OAuth2AccessToken getAccessToken (Authentication authentication) {
