@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {environment} from "../environments/environment";
+import {AppConstants} from "./AppConstants";
+import {AppRoutingModule} from "./app-routing.module";
 
 @Component({
   selector: 'app-root',
@@ -7,23 +10,25 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'user-management-app';
+  title = 'blogging-app';
+  access_token?: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router) {
   }
   ngOnInit(): void {
-    // let params = window.location.href.split('?')[1];
-    // params.split('&').forEach(value => {
-    //   if (value.includes('access_token')) {
-    //     console.log(value.split('=')[1])
-    //   }
-    // })
-
     let params = new URLSearchParams( window.location.search);
     // @ts-ignore
-    let authorizationCode = params.get("access_token")  ? params.get("access_token") : '';
-    // @ts-ignore
-    localStorage.setItem('access_token', authorizationCode);
-
+    this.access_token = params.get(AppConstants.ACCESS_TOKEN)  ? params.get(AppConstants.ACCESS_TOKEN) : localStorage.getItem(AppConstants.ACCESS_TOKEN);
+    if (!this.access_token) {
+      location.href = environment.BASE_URL + 'login';
+    } else {
+      // @ts-ignore
+      localStorage.setItem(AppConstants.ACCESS_TOKEN, this.access_token);
+      if (location.pathname) {
+        this.router.navigateByUrl(location.pathname)
+      } else {
+        this.router.navigateByUrl('/secured')
+      }
+    }
   }
 }
