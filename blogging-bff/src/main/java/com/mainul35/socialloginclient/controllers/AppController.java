@@ -1,5 +1,6 @@
-package com.mainul35.socialloginclient;
+package com.mainul35.socialloginclient.controllers;
 
+import com.mainul35.socialloginclient.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

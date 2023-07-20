@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../environments/environment";
 import {AppConstants} from "./AppConstants";
-import {AppRoutingModule} from "./app-routing.module";
+import {routes} from "./app-routing.module";
 
 @Component({
   selector: 'app-root',
@@ -24,11 +24,26 @@ export class AppComponent implements OnInit {
     } else {
       // @ts-ignore
       localStorage.setItem(AppConstants.ACCESS_TOKEN, this.access_token);
-      if (location.pathname) {
-        this.router.navigateByUrl(location.pathname)
-      } else {
-        this.router.navigateByUrl('/secured')
+      if (params.get('name')) {
+        // @ts-ignore
+        localStorage.setItem('name', params.get('name'));
       }
+      if (params.get('username')) {
+        // @ts-ignore
+        localStorage.setItem('username', params.get('username'));
+      }
+
+      if (params.get('image_url')) {
+        // @ts-ignore
+        localStorage.setItem('image_url', params.get('image_url'));
+      }
+
+      routes.forEach(route => {
+        if (location.pathname !== '/' && route.path !== '**' && location.pathname.search(route.path)) {
+          this.router.navigateByUrl(location.pathname)
+        }
+      })
+      this.router.navigateByUrl('/secured')
     }
   }
 }

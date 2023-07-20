@@ -1,35 +1,28 @@
-package com.mainul35.socialloginclient;
+package com.mainul35.socialloginclient.service;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
-
-
-@Component
-public class AuthSuccessHandler implements AuthenticationSuccessHandler {
+@Service
+public class AppService {
 
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+    @PreAuthorize("hasAnyAuthority('SCOPE_profile', 'SCOPE_openid')")
+    public String getJwtToken() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         var accessToken = getAccessToken(authentication);
-        response.sendRedirect("http://localhost:4200/?access_token=" + accessToken.getTokenValue());
+        var refreshToken = getRefreshToken(authentication) != null ? getRefreshToken(authentication).getTokenValue() : "NA";
+        return String.format("Access Token = %s <br><br><br> Refresh Token = %s",
+                accessToken.getTokenValue(), refreshToken);
     }
 
     public OAuth2AccessToken getAccessToken (Authentication authentication) {
@@ -38,6 +31,16 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
             OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
             if (accessToken != null) {
                 return accessToken;
+            }
+        }
+        return null;
+    }
+    public OAuth2RefreshToken getRefreshToken(Authentication authentication) {
+        var authorizedClient = this.getAuthorizedClient(authentication);
+        if (authorizedClient != null) {
+            OAuth2RefreshToken refreshToken = authorizedClient.getRefreshToken();
+            if (refreshToken != null) {
+                return refreshToken;
             }
         }
         return null;

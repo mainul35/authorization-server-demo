@@ -7,14 +7,14 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './components/login/login.component';
 import { SecuredComponent } from './components/secured/secured.component';
-import { LogoutComponent } from './components/logout/logout.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SecuredComponent,
-    LogoutComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
