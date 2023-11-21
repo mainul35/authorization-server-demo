@@ -14,15 +14,6 @@ spring:
     oauth2:
       authorization-server:
         client:
-          client-1:
-            registration:
-              client-id: client
-              client-secret: "{noop}secret"
-              authorization-grant-types: client_credentials
-              client-authentication-methods:
-                - client_secret_basic
-                - client_secret_post
-
           # We have defined only one client: oidc-client
           # This client information was also mentioned
           # in the above URL: client_id=oidc-client
@@ -34,16 +25,15 @@ spring:
               # provided client credentials from client application
 
               client-id: oidc-client
-              client-secret: "{noop}secret2"
 
               # The following authorization-grant-type will be matched with the
               # provided authorization-grant-type from the client application
 
               authorization-grant-types:
                 - "authorization_code"
-                - "refresh_token"
+
               client-authentication-methods:
-                - client_secret_basic
+                - "none"
 
               # This following redirect URI will be used to redirect the resource owner to the
               # Client application after the resource owner (user) provides necessary consents.
@@ -66,15 +56,15 @@ spring:
 
             require-authorization-consent: true
 
+            # Allowing oidc-client to use PKCE flow
+            require-proof-key: true
+
             # Here we set the access token and refresh token validity duration
             # in seconds
 
             token:
               access-token-time-to-live: 3600s
               refresh-token-time-to-live: 7200s
-#        endpoint:
-#          token-uri: "/oauth2/token"
-#        issuer-uri: http://127.0.0.1:8080/issuer
 logging:
   level:
     org:
