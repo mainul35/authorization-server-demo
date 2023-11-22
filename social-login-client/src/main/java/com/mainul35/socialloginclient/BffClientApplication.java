@@ -6,10 +6,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @EnableMethodSecurity
 @SpringBootApplication
-public class SocialLoginClientApplication {
+public class BffClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SocialLoginClientApplication.class, args);
+		SpringApplication.run(BffClientApplication.class, args);
 	}
 
 }

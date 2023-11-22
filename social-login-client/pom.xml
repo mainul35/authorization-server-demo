@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mainul35</groupId>
-	<artifactId>social-login-client</artifactId>
+	<artifactId>bff-client-application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>social-login-client</name>
-	<description>Social Login client</description>
+	<name>bff-client-application</name>
+	<description>BFF client application</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -24,12 +24,12 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
 		<dependency>

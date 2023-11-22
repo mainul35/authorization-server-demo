@@ -1,4 +1,4 @@
-package com.mainul35.socialloginclient;
+package com.mainul35.socialloginclient.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,7 @@ public class AppService {
 
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
-    @PreAuthorize("hasAnyAuthority('SCOPE_profile', 'SCOPE_openid')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_profile')")
     public String getJwtToken() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var accessToken = getAccessToken(authentication);
