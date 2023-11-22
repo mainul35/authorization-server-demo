@@ -15,6 +15,13 @@ spring:
       authorization-server:
         client:
 
+          client-1:
+            registration:
+              client-id: client
+              client-secret: "{noop}secret"
+              client-authentication-methods: client_secret_basic
+              authorization-grant-types: client_credentials
+
           # We have defined only one client: oidc-client
           # This client information was also mentioned
           # in the above URL: client_id=oidc-client
