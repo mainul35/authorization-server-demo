@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 logging:
   level:
@@ -12,20 +12,41 @@ spring:
     oauth2:
       client:
         registration:
+
+          # Client registration starts here
           oidc-client:
+
+            # Our oidc-client needs a provider. The provider information has been registered
+            # at the bottom of this configuration
             provider: spring
-            client-id: "oidc-client"
-            client-secret: "{noop}secret2"
+
+            # The following client-id and client-secret will be sent to the authorization server
+            # We don't need to mention the client_credentials in the grant type here.
+            # Note that, here the client-secret must not contain {noop} or any other encoding type mentioned.
+            client-id: oidc-client
+            client-secret: secret
+
+            # Our authorization grant type is authorization_code
             authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+            # The following redirect URL is the redirect URL definition of our client Server application.
+            # It is generally the current application host address. The authorization server's redirect URL
+            # definition means that this URL will be triggered when auth server redirects data to here.
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/oidc-client
+
+            # Scopes that will be displayed for requesting in the consent page.
+            # Authorization server must have equal or more scopes than these in number
             scope:
               - openid
               - profile
-            client-authentication-method: client_secret_basic
+              - read
+              - write
+
+            # This client name will display in the login screen as social login type
             client-name: oidc-client
+
+        # As mentioned above about provider, here we register the provider details
+        # for any unknown provider with their issuer URI
         provider:
           spring:
-            issuer-uri: http://localhost:8080
-      resource-server:
-        jwt:
-          issuer-uri: http://localhost:8080
+            issuer-uri: http://localhost:9001
