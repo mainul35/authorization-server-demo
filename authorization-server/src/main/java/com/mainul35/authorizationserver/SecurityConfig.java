@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -39,6 +36,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
 
+    // This first SecurityFilterChain Bean is only specific to authorization server specific configurations
+    // More on this can be found in this stackoverflow question answers:
+    // https://stackoverflow.com/questions/69126874/why-two-formlogin-configured-in-spring-authorization-server-sample-code
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -56,6 +56,7 @@ public class SecurityConfig {
 
     }
 
+    // This second SecurityFilterChain bean is responsible for any other security configurations
     @Bean
     @Order(2)
     public SecurityFilterChain clientAppSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -96,6 +97,20 @@ public class SecurityConfig {
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
 
+    /**
+     * Creating this bean initialized the following endpoints:
+     * /oauth2/authorize
+     * /oauth2/device_authorization
+     * /oauth2/token
+     * /oauth2/jwks
+     * /oauth2/revoke
+     * /oauth2/introspect
+     * /connect/register
+     * /userinfo
+     * /connect/logout
+     *
+     * For java based client registration configuration, it is very important to initialize this bean
+    */
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
         return AuthorizationServerSettings.builder().build();
