@@ -22,9 +22,9 @@ public class AppController {
         this.helloClient = helloClient;
     }
 
-    @GetMapping("/")
+    @GetMapping(value = "/", produces = "text/html")
     public ResponseEntity<String> getPublicData() {
-        return ResponseEntity.ok("Public data");
+        return ResponseEntity.ok("<h1>Public data</h1>");
     }
 
     @GetMapping("/private-data")
@@ -32,8 +32,14 @@ public class AppController {
         return ResponseEntity.ok(appService.getJwtToken());
     }
 
-    @GetMapping("/hello")
+    @GetMapping(value = "/hello", produces = "text/html")
     public ResponseEntity<String> sayHello () {
-        return ResponseEntity.ok(helloClient.getHello());
+        return ResponseEntity.ok(
+            """
+                <h1>
+                    %s
+                </h1>        
+            """.formatted(helloClient.getHello())
+        );
     }
 }

@@ -1,13 +1,23 @@
 server:
   port: 8080
 
+
 logging:
   level:
-    org:
-      springframework:
-        security: TRACE
+    org.springframework.boot: error
+    org.springframework.security: debug
+    org.springframework.security.web: debug
+    org.apache.catalina: error
+    com.mainul35:
+      - info
+      - trace
+      - debug
+      - error
+      - warn
 
 spring:
+  main:
+    banner-mode: off
   security:
     oauth2:
       client:

@@ -3,6 +3,13 @@ server:
 
 logging:
   level:
-    org:
-      springframework:
-        security: trace
+    org.springframework.boot: error
+    org.springframework.security: debug
+    org.springframework.security.web: debug
+    org.apache.catalina: error
+    com.mainul35:
+      - info
+      - trace
+      - debug
+      - error
+      - warn
