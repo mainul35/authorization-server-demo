@@ -13,7 +13,7 @@ public class AppController {
     @Autowired
     private AppService appService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<String> getPublicData() {
         return ResponseEntity.ok("Public data");
     }

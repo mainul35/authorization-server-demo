@@ -34,14 +34,14 @@ spring:
               # provided client credentials from client application
 
               client-id: oidc-client
-              client-secret: "{noop}secret2"
+              client-secret: "{noop}secret"
 
               # The following authorization-grant-type will be matched with the
               # provided authorization-grant-type from the client application
 
               authorization-grant-types:
-                - "authorization_code"
-                - "refresh_token"
+                - authorization_code
+                - refresh_token
               client-authentication-methods:
                 - client_secret_basic
 
@@ -57,10 +57,10 @@ spring:
               # These won't display in the consent page
 
               scopes:
-                - "openid"
-                - "profile"
-                - "read"
-                - "write"
+                - openid
+                - profile
+                - read
+                - write
 
             # Marking this flag as true will display the consent page
 
