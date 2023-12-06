@@ -20,7 +20,7 @@ public class SecurityConfig {
                             .anyRequest().authenticated();
                 })
                 .oauth2Login(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
                 .build();
     }
 }
