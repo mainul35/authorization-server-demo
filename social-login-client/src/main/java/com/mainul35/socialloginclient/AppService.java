@@ -17,7 +17,7 @@ public class AppService {
 
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
-    @PreAuthorize("hasAnyAuthority('SCOPE_profile', 'SCOPE_openid')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_profile', 'SCOPE_openid', 'SCOPE_read:user')")
     public String getJwtToken() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var accessToken = getAccessToken(authentication);

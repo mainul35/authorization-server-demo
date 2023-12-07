@@ -14,15 +14,6 @@ spring:
     oauth2:
       authorization-server:
         client:
-          client-1:
-            registration:
-              client-id: client
-              client-secret: "{noop}secret"
-              authorization-grant-types: client_credentials
-              client-authentication-methods:
-                - client_secret_basic
-                - client_secret_post
-
           # We have defined only one client: oidc-client
           # This client information was also mentioned
           # in the above URL: client_id=oidc-client

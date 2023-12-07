@@ -46,7 +46,7 @@ spring:
             # The following redirect URL is the redirect URL definition of our client Server application.
             # It is generally the current application host address. The authorization server's redirect URL
             # definition means that this URL will be triggered when auth server redirects data to here.
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            redirect-uri: http://127.0.0.1:8081/login/oauth2/code/oidc-client
 
             # Scopes that will be displayed for requesting in the consent page.
             # Authorization server must have equal or more scopes than these in number
