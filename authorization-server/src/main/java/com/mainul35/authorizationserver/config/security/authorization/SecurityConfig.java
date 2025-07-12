@@ -11,6 +11,7 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,6 +72,9 @@ public class SecurityConfig {
     private final GoogleUserRepository googleUserRepository;
     private final DataSource dataSource;
     private final ServletWebServerApplicationContext context;
+
+    @Value("${server.port}")
+    private String port;
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -146,7 +150,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(List.of("http://localhost:5174"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setExposedHeaders(List.of("Authorization"));
@@ -226,7 +230,6 @@ public class SecurityConfig {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){
-        int port = context.getWebServer().getPort();
         String host = context.getEnvironment().getProperty("server.address", "localhost");
         return AuthorizationServerSettings.builder().issuer("http://" + host + ":" + port).build();
     }
