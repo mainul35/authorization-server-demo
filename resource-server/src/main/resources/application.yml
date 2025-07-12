@@ -6,4 +6,17 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9001
+          issuer-uri: http://localhost:9000
+
+logging:
+  level:
+    org.springframework.boot: error
+    org.springframework.security: debug
+    org.springframework.security.web: debug
+    org.apache.catalina: error
+    com.mainul35:
+      - info
+      - trace
+      - debug
+      - error
+      - warn

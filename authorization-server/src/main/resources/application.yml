@@ -1,8 +1,41 @@
-server:
-  port: 9001
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:32221/article_user_db?sslmode=disable
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: "615531537634-806j95c1s18uundif9nl4oggcag7lcm6.apps.googleusercontent.com"
+            client-secret: "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"
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid
+
+          github:
+            client-id: 04469a8b0400d262e3d7
+            client-secret: 66584a7e848b20fbbde772aa9a83ee1b5b4a07f8
 
 logging:
   level:
-    org:
-      springframework:
-        security: trace
+    org.springframework.security: trace
+    org.springframework.security.oauth2: trace
+server:
+  port: 9000
+
+init:
+  key: n1POc4Ns79wa93l1
